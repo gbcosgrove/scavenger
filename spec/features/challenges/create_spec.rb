@@ -31,4 +31,23 @@ describe "Creating challenges" do
     expect(page).to_not have_content("Make the code really awesome")
 
   end
+
+  it "displays an error when the challenge title is less than 5 characters" do
+    expect(Challenge.count).to eq(0)
+
+    visit "/challenges"
+    click_link "New Challenge"
+    expect(page).to have_content("New challenge")
+
+    fill_in "Title", with: "Test"
+    fill_in "Description", with: "Make the code really awesome"
+    click_button "Create Challenge"
+
+    expect(page).to have_content("error")
+    expect(Challenge.count).to eq(0)
+
+    visit "/challenges"
+    expect(page).to_not have_content("Make the code really awesome")
+
+  end
 end
