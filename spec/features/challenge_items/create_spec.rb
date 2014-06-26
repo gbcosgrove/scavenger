@@ -3,12 +3,7 @@ require 'spec_helper'
 describe "Adding challenge items" do
   let!(:challenge) { Challenge.create(title: "My challenge", description: "A new challenge")}
 
-  def visit_challenge(challenge)
-    visit "/challenges"
-    within "#challenge_#{challenge.id}" do
-      click_link "List Items"
-    end
-  end
+
 
   it "is successful with valid content" do
     visit_challenge(challenge)

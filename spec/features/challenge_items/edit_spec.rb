@@ -4,12 +4,6 @@ describe "Editing challenge items" do
   let!(:challenge) { Challenge.create(title: "Create a brand new app", description: "Work a lot") }
   let!(:challenge_item) { challenge.challenge_items.create(content: "Never sleep") }
 
-  def visit_challenge(list)
-    visit "/challenges"
-    within "#challenge_#{list.id}" do
-      click_link "List Items"
-    end
-  end
 
   it "is successful with valid content" do
     visit_challenge(challenge)
