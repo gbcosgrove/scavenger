@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'challenge_items/index'
+
   resources :challenges
 
   root 'challenges#index'
