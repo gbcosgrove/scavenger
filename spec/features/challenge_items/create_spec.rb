@@ -11,7 +11,7 @@ describe "Adding challenge items" do
     fill_in "Content", with: "Write more RSpec tests"
     click_button "Save"
     expect(page).to have_content("Added challenge item")
-    within("ul.challenge_items") do
+    within("table.challenge_items") do
       expect(page).to have_content("Write more RSpec tests")
     end
   end

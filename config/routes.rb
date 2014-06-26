@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :users
+
   resources :challenges do
     resources :challenge_items do
       member do
