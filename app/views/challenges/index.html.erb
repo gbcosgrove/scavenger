@@ -1,29 +1,18 @@
-<h1>Listing challenges</h1>
+<h1>Challenges</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @challenges.each do |challenge| %>
-      <tr id="<%= dom_id(challenge) %>">
-        <td><%= challenge.title %></td>
-        <td><%= challenge.description %></td>
-        <td>
-          <%= link_to "List Items", challenge_challenge_items_path(challenge) %>
-          <%= link_to 'Show', challenge %>
-          <%= link_to 'Edit', edit_challenge_path(challenge) %>
-          <%= link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @challenges.each do |challenge| %>
+<div class="challenge" id="<%= dom_id(challenge) %>">
+  <h2><%= challenge.title %></h2>
+  <p><%= challenge.description %></p>
+  <ul class="functions">
+    <li><%= link_to "List Items", challenge_challenge_items_path(challenge) %></li>
+    <li><%= link_to 'Show', challenge %></li>
+    <li><%= link_to 'Edit', edit_challenge_path(challenge) %></li>
+    <li><%= link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+  </ul>
+  <br class="clear" />
+</div>
+<% end %>
 
 <br>
 

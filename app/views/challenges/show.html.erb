@@ -1,14 +1,26 @@
-<p id="notice"><%= notice %></p>
+<h1><%= @challenge.title %></h1>
 
-<p>
-  <strong>Title:</strong>
-  <%= @challenge.title %>
-</p>
+<h2><%= @challenge.description %></h2>
 
-<p>
-  <strong>Description:</strong>
-  <%= @challenge.description %>
-</p>
+<% if @challenge.has_incomplete_items? %>
+<h3>Incomplete Items:</h3>
+
+<ul>
+  <% @challenge.challenge_items.incomplete.each do |challenge_item| %>
+  <li><%= challenge_item.content %></li>
+  <% end %>
+</ul>
+<% end %>
+
+<% if @challenge.has_completed_items? %>
+<h3>Complete Items:</h3>
+
+<ul>
+  <% @challenge.challenge_items.complete.each do |challenge_item| %>
+  <li><%= challenge_item.content %></li>
+  <% end %>
+</ul>
+<% end %>
 
 <%= link_to 'Edit', edit_challenge_path(@challenge) %> |
 <%= link_to 'Back', challenges_path %>
