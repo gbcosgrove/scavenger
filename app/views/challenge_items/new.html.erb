@@ -1,4 +1,18 @@
 <%= form_for [@challenge, @challenge_item] do |form| %>
+  <% if @challenge_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@challenge_item.errors.count, "error") %> prohibited this challenge item from being saved:</h2>
+
+      <ul>
+      <% @challenge_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
   <%= form.label :content %>
   <%= form.text_field :content %>
 
