@@ -50,4 +50,42 @@ describe "Creating challenges" do
     expect(page).to_not have_content("Make the code really awesome")
 
   end
+
+  it "displays an error when the challenge doesn't have a description" do
+    expect(Challenge.count).to eq(0)
+
+    visit "/challenges"
+    click_link "New Challenge"
+    expect(page).to have_content("New challenge")
+
+    fill_in "Title", with: "Write code"
+    fill_in "Description", with: ""
+    click_button "Create Challenge"
+
+    expect(page).to have_content("error")
+    expect(Challenge.count).to eq(0)
+
+    visit "/challenges"
+    expect(page).to_not have_content("Write Code")
+
+  end
+
+  it "displays an error when the challenge description is less than 10 characters" do
+    expect(Challenge.count).to eq(0)
+
+    visit "/challenges"
+    click_link "New Challenge"
+    expect(page).to have_content("New challenge")
+
+    fill_in "Title", with: "Write some code"
+    fill_in "Description", with: "Code"
+    click_button "Create Challenge"
+
+    expect(page).to have_content("error")
+    expect(Challenge.count).to eq(0)
+
+    visit "/challenges"
+    expect(page).to_not have_content("Write some code")
+
+  end
 end
