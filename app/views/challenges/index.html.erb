@@ -11,7 +11,7 @@
 
   <tbody>
     <% @challenges.each do |challenge| %>
-      <tr>
+      <tr id="<%= dom_id(challenge) %>">
         <td><%= challenge.title %></td>
         <td><%= challenge.description %></td>
         <td><%= link_to 'Show', challenge %></td>
