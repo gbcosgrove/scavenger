@@ -1,8 +1,12 @@
 <h1><%= @challenge.title %></h1>
-<p>Find me in app/views/challenge_items/index.html.erb</p>
+
 
 <ul class="challenge_items">
   <% @challenge.challenge_items.each do |challenge_item| %>
   <li><%= challenge_item.content %></li>
   <% end %>
 </ul>
+
+<p>
+  <%= link_to "New Challenge Item", new_challenge_challenge_item_path %>
+</p>
