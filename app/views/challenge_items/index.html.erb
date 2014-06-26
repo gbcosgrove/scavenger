@@ -3,7 +3,10 @@
 
 <ul class="challenge_items">
   <% @challenge.challenge_items.each do |challenge_item| %>
-  <li><%= challenge_item.content %></li>
+  <li id="<%= dom_id(challenge_item) %>">
+    <%= challenge_item.content %>
+    <%= link_to "Edit", edit_challenge_challenge_item_path(challenge_item) %>
+  </li>
   <% end %>
 </ul>
 
