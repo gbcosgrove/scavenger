@@ -46,6 +46,12 @@ class ChallengeItemsController < ApplicationController
     redirect_to challenge_challenge_items_path
   end
 
+  def complete
+    @challenge_item = @challenge.challenge_items.find(params[:id])
+    @challenge_item.update_attribute(:completed_at, Time.now)
+    redirect_to challenge_challenge_items_path, notice: "Challenge item marked as complete."
+  end
+
   def url_options
     { challenge_id: params[:challenge_id] }.merge(super)
   end

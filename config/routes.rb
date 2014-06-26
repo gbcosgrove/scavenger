@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
   resources :challenges do
-    resources :challenge_items
+    resources :challenge_items do
+      member do
+        patch :complete
+      end
+    end
   end
 
   root 'challenges#index'

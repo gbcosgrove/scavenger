@@ -4,10 +4,13 @@
 <table class="challenge_items">
   <% @challenge.challenge_items.each do |challenge_item| %>
   <tr id="<%= dom_id(challenge_item) %>">
-    <%= challenge_item.content %>
-    <%= link_to "Edit", edit_challenge_challenge_item_path(challenge_item) %>
-    <%= link_to "Delete", challenge_challenge_item_path(challenge_item), method: :delete,
-      data: { confirm: "Are you sure?" } %>
+    <td><%= challenge_item.content %></td>
+    <td>
+      <%= link_to "Mark Complete", complete_challenge_challenge_item_path(challenge_item), method: :patch %>
+      <%= link_to "Edit", edit_challenge_challenge_item_path(challenge_item) %>
+      <%= link_to "Delete", challenge_challenge_item_path(challenge_item), method: :delete,
+        data: { confirm: "Are you sure?" } %>
+    </td>
   </tr>
   <% end %>
 </table>
