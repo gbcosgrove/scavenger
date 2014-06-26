@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Creating todo lists" do
+describe "Creating challenges" do
   it "redirects to the challenge list index page on success" do
     visit "/challenges"
     click_link "New Challenge"
