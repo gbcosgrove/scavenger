@@ -36,6 +36,16 @@ class ChallengeItemsController < ApplicationController
     end
   end
 
+  def destroy
+    @challenge_item = @challenge.challenge_items.find(params[:id])
+    if @challenge_item.destroy
+      flash[:success] = "Challenge item was deleted"
+    else
+      flash[:error] = "Challenge item could not be deleted"
+    end
+    redirect_to challenge_challenge_items_path
+  end
+
   def url_options
     { challenge_id: params[:challenge_id] }.merge(super)
   end
