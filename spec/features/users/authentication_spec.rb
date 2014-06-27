@@ -1,11 +1,11 @@
 require "spec_helper"
 
 describe "Logging In" do
-  it "logs the user in and goes to the todo lists" do
-    User.create(first_name: "Joe", last_name: "Bloggs", email: "joebloggs@email.com", password: "test12345", password_confirmation: "test12345")
+  it "logs the user in and goes to the challenges" do
+    User.create(first_name: "Joe", last_name: "Bloggs", email: "Joe@email.com", password: "testpassword", password_confirmation: "testpassword")
     visit new_user_session_path
-    fill_in "Email Address", with: "joebloggs@email.com"
-    fill_in "Password", with: "test12345"
+    fill_in "Email Address", with: "Joe@email.com"
+    fill_in "Password", with: "testpassword"
     click_button "Log In"
 
     expect(page).to have_content("Challenges")
@@ -14,11 +14,11 @@ describe "Logging In" do
 
   it "diplays the email address in the event of a failed login" do
     visit new_user_session_path
-    fill_in "Email Address", with: "joebloggs@email.com"
+    fill_in "Email Address", with: "Joe@email.com"
     fill_in "Password", with: "incorrect"
     click_button "Log In"
 
     expect(page).to have_content("Please check your email and password")
-    expect(page).to have_field("Email Address", with: "joebloggs@email.com")
+    expect(page).to have_field("Email Address", with: "Joe@email.com")
   end
 end

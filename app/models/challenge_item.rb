@@ -2,7 +2,7 @@ class ChallengeItem < ActiveRecord::Base
   belongs_to :challenge
 
   validates :content, presence: true,
-                      length: { minimum: 3 }
+                      length: { minimum: 2 }
 
   scope :complete, -> { where("completed_at is not null") }
   scope :incomplete, -> { where(completed_at: nil) }
@@ -11,3 +11,4 @@ class ChallengeItem < ActiveRecord::Base
     !completed_at.blank?
   end
 end
+

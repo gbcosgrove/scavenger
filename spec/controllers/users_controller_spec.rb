@@ -65,7 +65,7 @@ describe UsersController do
         assigns(:user).should be_persisted
       end
 
-      it "redirects to the todo lists path" do
+      it "redirects to the challenges path" do
         post :create, {:user => valid_attributes}, valid_session
         response.should redirect_to(challenges_path)
       end

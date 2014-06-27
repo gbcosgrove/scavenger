@@ -9,10 +9,9 @@ class UserSessionsController < ApplicationController
       flash[:success] = "Thanks for logging in!"
       redirect_to challenges_path
     else
-      logger.info params.inspect
-      logger.info(user.authenticate(params[:password]).to_s)
       flash[:error] = "There was a problem logging in. Please check your email and password."
       render action: 'new'
     end
   end
 end
+

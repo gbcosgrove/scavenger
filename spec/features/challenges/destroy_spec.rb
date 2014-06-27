@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "Deleting challenges" do
-  let!(:challenge) { Challenge.create(title: "New challenge", description: "Another challenge") }
+  let!(:challenge) { Challenge.create(title: "Create an App", description: "Test the App.") }
 
   it "is successful when clicking the destroy link" do
     visit "/challenges"

@@ -1,18 +1,16 @@
 require 'spec_helper'
 
 describe "Adding challenge items" do
-  let!(:challenge) { Challenge.create(title: "My challenge", description: "A new challenge")}
-
-
+  let!(:challenge_list) { Challenge.create(title: "Create an App", description: "Test the app") }
 
   it "is successful with valid content" do
     visit_challenge(challenge)
     click_link "New Challenge Item"
-    fill_in "Content", with: "Write more RSpec tests"
+    fill_in "Content", with: "Always work"
     click_button "Save"
-    expect(page).to have_content("Added challenge item")
+    expect(page).to have_content("Added challenge item.")
     within("table.challenge_items") do
-      expect(page).to have_content("Write more RSpec tests")
+      expect(page).to have_content("Always work")
     end
   end
 
@@ -22,18 +20,18 @@ describe "Adding challenge items" do
     fill_in "Content", with: ""
     click_button "Save"
     within("div.flash") do
-      expect(page).to have_content("There was an error adding that challenge item")
+      expect(page).to have_content("There was a problem adding that challenge list item.")
     end
     expect(page).to have_content("Content can't be blank")
   end
 
-  it "displays an error with content less than 3 characters long" do
+  it "displays an error with content less than 2 characters long" do
     visit_challenge(challenge)
     click_link "New Challenge Item"
-    fill_in "Content", with: "Hi"
+    fill_in "Content", with: "1"
     click_button "Save"
     within("div.flash") do
-      expect(page).to have_content("There was an error adding that challenge item")
+      expect(page).to have_content("There was a problem adding that challenge item.")
     end
     expect(page).to have_content("Content is too short")
   end

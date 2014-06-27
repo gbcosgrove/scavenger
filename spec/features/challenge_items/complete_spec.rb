@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "Editing challenge items" do
-  let!(:challenge) { Challenge.create(title: "Create a brand new app", description: "Work a lot") }
-  let!(:challenge_item) { challenge.challenge_items.create(content: "Never sleep") }
+describe "Completing challenge items" do
+  let!(:challenge) { Challenge.create(title: "Create an app", description: "Test the app") }
+  let!(:challenge_item) { challenge.challenge_items.create(content: "Never Sleep") }
 
   it "is successful when marking a single item complete" do
     expect(challenge_item.completed_at).to be_nil
@@ -15,7 +15,7 @@ describe "Editing challenge items" do
   end
 
   context "with completed items" do
-    let!(:completed_challenge_item) {challenge.challenge_items.create(content: "Write some RSpec tests", completed_at: 5.minutes.ago) }
+    let!(:completed_challenge_item) { challenge.challenge_items.create(content: "Always work", completed_at: 5.minutes.ago) }
 
     it "shows completed items as complete" do
       visit_challenge challenge
@@ -30,7 +30,5 @@ describe "Editing challenge items" do
         expect(page).to_not have_content("Mark Complete")
       end
     end
-
   end
-
 end

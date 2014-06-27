@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "challenges/index" do
+describe "chalenges/index" do
   before(:each) do
-    assign(:challenges, [
+    assign(:chalenges, [
       stub_model(Challenge,
         :title => "Title",
         :description => "MyText"
@@ -14,10 +14,10 @@ describe "challenges/index" do
     ])
   end
 
-  it "renders a list of challenges" do
+  it "renders a list of chalenges" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "div.challenge h2", :text => "Title".to_s, :count => 2
-    assert_select "div.challenge p", :text => "MyText".to_s, :count => 2
+    assert_select "div.chalenge h2", :text => "Title".to_s, :count => 2
+    assert_select "div.chalenge p", :text => "MyText".to_s, :count => 2
   end
 end

@@ -1,7 +1,5 @@
 class ChallengeItemsController < ApplicationController
-
   before_action :find_challenge
-
 
   def index
   end
@@ -16,7 +14,7 @@ class ChallengeItemsController < ApplicationController
       flash[:success] = "Added challenge item."
       redirect_to challenge_challenge_items_path
     else
-      flash[:error] = "There was an error adding that challenge item"
+      flash[:error] = "There was a problem adding that challenge item."
       render action: :new
     end
   end
@@ -31,7 +29,7 @@ class ChallengeItemsController < ApplicationController
       flash[:success] = "Saved challenge item."
       redirect_to challenge_challenge_items_path
     else
-      flash[:error] = "That challenge item could not be saved."
+      flash[:error] = "That todo item could not be saved."
       render action: :edit
     end
   end
@@ -39,9 +37,9 @@ class ChallengeItemsController < ApplicationController
   def destroy
     @challenge_item = @challenge.challenge_items.find(params[:id])
     if @challenge_item.destroy
-      flash[:success] = "Challenge item was deleted"
+      flash[:success] = "Challenge item was deleted."
     else
-      flash[:error] = "Challenge item could not be deleted"
+      flash[:error] = "Challenge item could not be deleted."
     end
     redirect_to challenge_challenge_items_path
   end
@@ -49,16 +47,14 @@ class ChallengeItemsController < ApplicationController
   def complete
     @challenge_item = @challenge.challenge_items.find(params[:id])
     @challenge_item.update_attribute(:completed_at, Time.now)
-    redirect_to challenge_challenge_items_path, notice: "Challenge item marked as complete."
+    redirect_to challenge_challenge_items_path, notice: "Challenge Item marked as complete."
   end
 
   def url_options
     { challenge_id: params[:challenge_id] }.merge(super)
   end
 
-# This is required because of rails 4 strong parameters requirements
   private
-
   def find_challenge
     @challenge = Challenge.find(params[:challenge_id])
   end
@@ -66,4 +62,5 @@ class ChallengeItemsController < ApplicationController
   def challenge_item_params
     params[:challenge_item].permit(:content)
   end
+
 end

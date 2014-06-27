@@ -3,11 +3,11 @@ require 'spec_helper'
 describe User do
   let(:valid_attributes) {
     {
-      first_name:             "Greg",
-      last_name:              "Cosgrove",
-      email:                  "gregcosgrove@gmail.com",
-      password:               "test12345",
-      password_confirmation:  "test12345"
+      first_name: "Joe",
+      last_name: "Bloggs",
+      email: "joe@email.com",
+      password: "testpassword",
+      password_confirmation: "testpassword"
     }
   }
   context "validations" do
@@ -26,30 +26,30 @@ describe User do
     end
 
     it "requires a unique email (case insensitive)" do
-      user.email = "JOEBLOGGS@GMAIL.COM"
+      user.email = "JOE@EMAIL.COM"
       expect(user).to validate_uniqueness_of(:email)
     end
 
     it "requires the email address to look like an email" do
-      user.email = "bob"
+      user.email = "joe"
       expect(user).to_not be_valid
     end
+
   end
 
-  context "#downcase_email" do
+  describe "#downcase_email" do
     it "makes the email attribute lower case" do
-      user = User.new(valid_attributes.merge(email: "JOEBLOGGS@GMAIL.COM"))
+      user = User.new(valid_attributes.merge(email: "JOE@EMAIL.COM"))
       expect{ user.downcase_email }.to change{ user.email }.
-        from("JOEBLOGGS@GMAIL.COM").
-        to("joebloggs@gmail.com")
+        from("JOE@EMAIL.COM").
+        to("joe@email.com")
     end
 
     it "downcases an email before saving" do
       user = User.new(valid_attributes)
-        user.email = "GREGCOSGROVE@GMAIL.COM"
-        expect(user.save).to be_true
-        expect(user.email).to eq("gregcosgrove@gmail.com")
-      end
+      user.email = "MIKE@EMAIL.COM"
+      expect(user.save).to be_true
+      expect(user.email).to eq("mike@email.com")
+    end
   end
-
 end

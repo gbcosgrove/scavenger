@@ -1,77 +1,69 @@
 require 'spec_helper'
 
 describe "Creating challenges" do
+  def create_challenge(options={})
+    options[:title] ||= "My challenge"
+    options[:description] ||= "This is my challenge."
 
-    def create_challenge(options={})
-        options[:title] ||= "Write Code"
-        options[:description] ||= "Write some really awesome code"
+    visit "/challenges"
+    click_link "New Challenge"
+    expect(page).to have_content("New Challenge")
 
-        visit "/challenges"
-        click_link "New Challenge"
-        expect(page).to have_content("New challenge")
+    fill_in "Title", with: options[:title]
+    fill_in "Description", with: options[:description]
+    click_button "Create Challenge"
+  end
 
-        fill_in "Title", with: options[:title]
-        fill_in "Description", with: options[:description]
-        click_button "Create Challenge"
-    end
+  it "redirects to the challenge index page on success" do
+    create_challenge
+    expect(page).to have_content("My challenge")
+  end
 
-    it "redirects to the challenge list index page on success" do
-
-        create_challenge
-
-        expect(page).to have_content("Write Code")
-
-    end
-
-    it "displays an error when the challenge doesn't have a title" do
-        expect(Challenge.count).to eq(0)
-
-        create_challenge title: ""
-
-        expect(page).to have_content("error")
-        expect(Challenge.count).to eq(0)
-
-        visit "/challenges"
-        expect(page).to_not have_content("Write a bunch of code")
-
-    end
-
-    it "displays an error when the challenge title is less than 5 characters" do
-        expect(Challenge.count).to eq(0)
-
-        create_challenge title: "Test"
-
-        expect(page).to have_content("error")
-        expect(Challenge.count).to eq(0)
-
-        visit "/challenges"
-        expect(page).to_not have_content("Write a bunch of code")
-
-    end
-
-    it "displays an error when the challenge doesn't have a description" do
+  it "displays an error when the challenge has no title" do
     expect(Challenge.count).to eq(0)
 
-        create_challenge title: "Create spec tests", description: ""
+    create_challenge title: ""
 
-        expect(page).to have_content("error")
-        expect(Challenge.count).to eq(0)
+    expect(page).to have_content("error")
+    expect(Challenge.count).to eq(0)
 
-        visit "/challenges"
-        expect(page).to_not have_content("Create spec tests")
+    visit "/challenges"
+    expect(page).to_not have_content("This is what I'm doing today.")
+  end
 
-    end
+  it "displays an error when the challenge has a title less than 3 characters" do
+    expect(Challenge.count).to eq(0)
 
-    it "displays an error when the challenge description is less than 10 characters" do
-        expect(Challenge.count).to eq(0)
+    create_challenge title: "Hi"
 
-        create_challenge title: "Create spec tests", description: "Code"
+    expect(page).to have_content("error")
+    expect(Challenge.count).to eq(0)
 
-        expect(page).to have_content("error")
-        expect(Challenge.count).to eq(0)
+    visit "/challenges"
+    expect(page).to_not have_content("This is what I'm doing today.")
+  end
 
-        visit "/challenges"
-        expect(page).to_not have_content("Create spec tests")
+  it "displays an error when the challenge has no description" do
+    expect(Challenge.count).to eq(0)
 
-    end
+    create_challenge title: "Create an App", description: ""
+
+    expect(page).to have_content("error")
+    expect(Challenge.count).to eq(0)
+
+    visit "/challenges"
+    expect(page).to_not have_content("Create an App")
+  end
+
+  it "displays an error when the challenge has no description" do
+    expect(Challenge.count).to eq(0)
+
+    create_challenge title: "Create an App", description: "Test an App"
+
+    expect(page).to have_content("error")
+    expect(Challenge.count).to eq(0)
+
+    visit "/challenges"
+    expect(page).to_not have_content("Create an App")
+  end
 end
