@@ -26,16 +26,15 @@ describe UsersController do
   let(:valid_attributes) { {
     "first_name" => "MyString",
     "last_name" => "LastName",
-    "email" => "email@test.com",
-    "password" => "test12345",
-    "password_confirmation" => "test12345"
-    } }
+    "email" => "email@example.com",
+    "password" => "password12345",
+    "password_confirmation" => "password12345"
+  } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController. Be sure to keep this updated too.
   let(:valid_session) { {} }
-
 
   describe "GET new" do
     it "assigns a new user as @user" do
@@ -66,9 +65,19 @@ describe UsersController do
         assigns(:user).should be_persisted
       end
 
-      it "redirects to the created user" do
+      it "redirects to the todo lists path" do
         post :create, {:user => valid_attributes}, valid_session
-        response.should redirect_to(User.last)
+        response.should redirect_to(challenges_path)
+      end
+
+      it "sets the flash success message" do
+        post :create, {:user => valid_attributes}, valid_session
+        expect(flash[:success]).to eq("Thanks for signing up!")
+      end
+
+      it "sets the session user_id to the created user" do
+        post :create, {:user => valid_attributes}, valid_session
+        expect(session[:user_id]).to eq(User.find_by(email: valid_attributes["email"]).id)
       end
     end
 

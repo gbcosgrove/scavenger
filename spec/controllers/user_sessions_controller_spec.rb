@@ -12,14 +12,13 @@ describe UserSessionsController do
       get 'new'
       expect(response).to render_template('new')
     end
-
   end
 
   describe "POST 'create'" do
     context "with correct credentials" do
-      let!(:user) { User.create(first_name: "Joe", last_name: "Bloggs", email: "joebloggs@email.com", password: "test12345", password_confirmation: "test12345")}
+      let!(:user) { User.create(first_name: "Joe", last_name: "Bloggs", email: "joebloggs@email.com", password: "test12345", password_confirmation: "test12345") }
 
-      it "redirects to the challenge path" do
+      it "redirects to the todo list path" do
         post :create, email: "joebloggs@email.com", password: "test12345"
         expect(response).to be_redirect
         expect(response).to redirect_to(challenges_path)
@@ -55,7 +54,7 @@ describe UserSessionsController do
 
       it "sets the flash error message" do
         post :create, email: email, password: password
-        expect(flash[:error]).to eq("There was a problem logging in.  Please check that you typed in the correct email and password")
+        expect(flash[:error]).to eq("There was a problem logging in. Please check your email and password.")
       end
     end
 
@@ -65,18 +64,19 @@ describe UserSessionsController do
       it_behaves_like "denied login"
     end
 
-    context "with an inccorrect password" do
-      let!(:user) { User.create(first_name: "Joe", last_name: "Bloggs", email: "joebloggs@email.com", password: "test12345", password_confirmation: "test12345")}
+    context "with an incorrect password" do
+      let!(:user) { User.create(first_name: "Joe", last_name: "Bloggs", email: "jason@teamtreehouse.com", password: "test12345", password_confirmation: "test12345") }
       let(:email) { user.email }
-      let(:password) { "wrongpassword" }
+      let(:password) { "incorrect" }
       it_behaves_like "denied login"
     end
 
-    context "with no email in existance" do
-      let(:email) { "fake@fake.com" }
-      let(:password) { "word" }
+    context "with no email in existence" do
+      let(:email) { "none@found.com" }
+      let(:password) { "incorrect" }
       it_behaves_like "denied login"
     end
-   end
+
+  end
 
 end
