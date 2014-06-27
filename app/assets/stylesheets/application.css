@@ -19,9 +19,11 @@ div.alert {
   padding: 10px;
 }
 
-div.flash.success   { border: 2px solid green; color: green; }
-div.flash.error     { border: 2px solid red; color: red; }
-div.flash.notice    { border: 2px solid blue; color: blue; }
+div.flash.success { border: 2px solid green; color: green; }
+div.flash.error   { border: 2px solid red;   color: red;   }
+div.flash.notice  { border: 2px solid blue;  color: blue;  }
+
+.clear { clear: both; }
 
 div.nav {
   border-bottom: 1px solid #aaa;

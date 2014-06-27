@@ -21,20 +21,26 @@ require 'spec_helper'
 describe ChallengesController do
 
   # This should return the minimal set of attributes required to create a valid
-  # Challenge. As you add validations to Challenge, be sure to
+  # TodoList. As you add validations to TodoList, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "title" => "MyString", "description" => "Test description"} }
+  let(:valid_attributes) { { "title" => "MyString", "description" => "My Description" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # ChallengesController. Be sure to keep this updated too.
+  # TodoListsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  before do
+    controller.stub(:current_user).and_return(User.new)
+  end
+
   describe "GET index" do
-    it "assigns all challenges as @challenges" do
-      challenge = Challenge.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:challenges).should eq([challenge])
+    context "logged in" do
+      it "assigns all todo_lists as @todo_lists" do
+        challenge = Challenge.create! valid_attributes
+        get :index, {}, valid_session
+        assigns(:challenges).should eq([challenge])
+      end
     end
   end
 
