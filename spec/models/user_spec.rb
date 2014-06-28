@@ -6,8 +6,8 @@ describe User do
       first_name: "Joe",
       last_name: "Bloggs",
       email: "joe@email.com",
-      password: "testpassword",
-      password_confirmation: "testpassword"
+      password: "testpassword1",
+      password_confirmation: "testpassword1"
     }
   }
 

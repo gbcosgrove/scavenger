@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe "Adding challenge items" do
-  let!(:challenge) { Challenge.create(title: "Create an App", description: "Test the app") }
-  let(:user) { create(:user) }
-  before { sign_in user, password: 'password123'}
+  let(:user) { challenge.user }
+  let!(:challenge) { create(:challenge) }
+  before { sign_in user, password: 'testpassword1'}
 
   it "is successful with valid content" do
     visit_challenge(challenge)

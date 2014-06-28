@@ -2,7 +2,8 @@
 
 FactoryGirl.define do
   factory :challenge do
-    title "MyString"
-    description "MyText"
+    title "Challenge Title"
+    description "Challenge Description"
+    user
   end
 end

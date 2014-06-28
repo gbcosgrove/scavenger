@@ -18,7 +18,7 @@ describe "Creating challenges" do
   end
 
   before do
-    sign_in user, password: "password123"
+    sign_in user, password: "testpassword1"
   end
 
   it "redirects to the challenge index page on success" do

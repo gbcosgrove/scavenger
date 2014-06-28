@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe "Editing challenges" do
-  let(:user) { create(:user) }
-  let!(:challenge) { Challenge.create(title: "Create an App", description: "Test the App.") }
+  let(:user) { challenge.user }
+  let!(:challenge) { create(:challenge) }
 
   def update_challenge(options={})
     options[:title] ||= "My challenge"
@@ -20,7 +20,7 @@ describe "Editing challenges" do
   end
 
   before do
-    sign_in user, password: "password123"
+    sign_in challenge.user, password: "testpassword1"
   end
 
   it "updates a challenge successfully with correct information" do

@@ -2,10 +2,10 @@ require "spec_helper"
 
 describe "Logging In" do
   it "logs the user in and goes to the challenges" do
-    User.create(first_name: "Joe", last_name: "Bloggs", email: "joe@email.com", password: "testpassword", password_confirmation: "testpassword")
+    User.create(first_name: "Joe", last_name: "Bloggs", email: "joe@email.com", password: "testpassword1", password_confirmation: "testpassword1")
     visit new_user_session_path
     fill_in "Email Address", with: "joe@email.com"
-    fill_in "Password", with: "testpassword"
+    fill_in "Password", with: "testpassword1"
     click_button "Log In"
 
     expect(page).to have_content("Challenges")

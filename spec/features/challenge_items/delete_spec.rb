@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe "Deleting challenge items" do
-  let!(:challenge) { Challenge.create(title: "Create an App", description: "Test the App") }
+  let(:user) { challenge.user }
+  let!(:challenge) { create(:challenge) }
   let!(:challenge_item) { challenge.challenge_items.create(content: "Never Sleep") }
-  let(:user) { create(:user) }
-  before { sign_in user, password: 'password123'}
+  before { sign_in user, password: 'testpassword1'}
 
   it "is successful" do
     visit_challenge(challenge)

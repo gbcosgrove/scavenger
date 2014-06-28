@@ -11,8 +11,8 @@ describe "Signing up" do
     fill_in "First Name", with: "Joe"
     fill_in "Last Name", with: "Bloggs"
     fill_in "Email", with: "joe@email.com"
-    fill_in "Password", with: "testpassword"
-    fill_in "Password (again)", with: "testpassword"
+    fill_in "Password", with: "testpassword1"
+    fill_in "Password (again)", with: "testpassword1"
     click_button "Sign Up"
 
     expect(User.count).to eq(1)

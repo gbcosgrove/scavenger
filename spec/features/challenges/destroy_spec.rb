@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe "Deleting challenges" do
-  let(:user) { create(:user) }
-  let!(:challenge) { Challenge.create(title: "Create an App", description: "Test the App.") }
+  let(:user) { challenge.user }
+  let!(:challenge) { create(:challenge) }
 
   before do
-    sign_in user, password: "password123"
+    sign_in user, password: "testpassword1"
   end
 
   it "is successful when clicking the destroy link" do
