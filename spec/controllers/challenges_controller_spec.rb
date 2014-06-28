@@ -29,42 +29,52 @@ describe ChallengesController do
   # in order to pass any filters (e.g. authentication) defined in
   # ChallengesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
+  let!(:user) { create(:user) }
 
   before do
-    sign_in(build_stubbed(:user))
+    sign_in(user)
   end
 
   describe "GET index" do
-
     context "logged in" do
       it "assigns all challenges as @challenges" do
-        challenge = Challenge.create! valid_attributes
+        challenge = user.challenges.create! valid_attributes
         get :index, {}, valid_session
         assigns(:challenges).should eq([challenge])
+        expect(assigns(:challenges).map(&:user)).to eq([user])
+      end
+
+      it "does not load other user's todo lists" do
+        other_challenge = Challenge.create!(valid_attributes.merge(user_id: create(:user).id))
+        get :index, {}, valid_session
+        expect(assigns(:challenges)).to_not include(other_challenge)
       end
     end
   end
 
   describe "GET show" do
-    it "assigns the requested challenge as @challenge" do
-      challenge = Challenge.create! valid_attributes
+    it "assigns the requested challenge as @challenge for the logged in user" do
+      challenge = user.challenges.create! valid_attributes
       get :show, {:id => challenge.to_param}, valid_session
       assigns(:challenge).should eq(challenge)
+      expect(assigns(:challenge).user).to eq(user)
     end
   end
 
   describe "GET new" do
-    it "assigns a new challenge as @challenge" do
+    it "assigns a new challenge as @challenge for the logged in user" do
       get :new, {}, valid_session
       assigns(:challenge).should be_a_new(Challenge)
+      expect(assigns(:challenge).user).to eq(user)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested challenge as @challenge" do
-      challenge = Challenge.create! valid_attributes
+      challenge = user.challenges.create! valid_attributes
       get :edit, {:id => challenge.to_param}, valid_session
       assigns(:challenge).should eq(challenge)
+      expect(assigns(:challenge).user).to eq(user)
     end
   end
 
@@ -86,6 +96,19 @@ describe ChallengesController do
         post :create, {:challenge => valid_attributes}, valid_session
         response.should redirect_to(Challenge.last)
       end
+
+      it "creates a todo list for the current user" do
+        post :create, {:challenge => valid_attributes}, valid_session
+        challenge = Challenge.last
+        expect(challenge.user).to eq(user)
+      end
+
+      it "does not allow users to create challenges for other users" do
+        other_user = create(:user)
+        post :create, {:challenge => valid_attributes.merge(user_id: other_user.id)}, valid_session
+        challenge = Challenge.last
+        expect(challenge.user).to eq(user)
+      end
     end
 
     describe "with invalid params" do
@@ -94,6 +117,7 @@ describe ChallengesController do
         Challenge.any_instance.stub(:save).and_return(false)
         post :create, {:challenge => { "title" => "invalid value" }}, valid_session
         assigns(:challenge).should be_a_new(Challenge)
+        expect(assigns(:challenge).user).to eq(user)
       end
 
       it "re-renders the 'new' template" do
@@ -108,7 +132,7 @@ describe ChallengesController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested challenge" do
-        challenge = Challenge.create! valid_attributes
+        challenge = user.challenges.create! valid_attributes
         # Assuming there are no other challenges in the database, this
         # specifies that the Challenge created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -118,13 +142,14 @@ describe ChallengesController do
       end
 
       it "assigns the requested challenge as @challenge" do
-        challenge = Challenge.create! valid_attributes
+        challenge = user.challenges.create! valid_attributes
         put :update, {:id => challenge.to_param, :challenge => valid_attributes}, valid_session
         assigns(:challenge).should eq(challenge)
+        expect(assigns(:challenge).user).to eq(user)
       end
 
       it "redirects to the challenge" do
-        challenge = Challenge.create! valid_attributes
+        challenge = user.challenges.create! valid_attributes
         put :update, {:id => challenge.to_param, :challenge => valid_attributes}, valid_session
         response.should redirect_to(challenge)
       end
@@ -132,7 +157,7 @@ describe ChallengesController do
 
     describe "with invalid params" do
       it "assigns the challenge as @challenge" do
-        challenge = Challenge.create! valid_attributes
+        challenge = user.challenges.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Challenge.any_instance.stub(:save).and_return(false)
         put :update, {:id => challenge.to_param, :challenge => { "title" => "invalid value" }}, valid_session
@@ -140,7 +165,7 @@ describe ChallengesController do
       end
 
       it "re-renders the 'edit' template" do
-        challenge = Challenge.create! valid_attributes
+        challenge = user.challenges.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Challenge.any_instance.stub(:save).and_return(false)
         put :update, {:id => challenge.to_param, :challenge => { "title" => "invalid value" }}, valid_session
@@ -151,14 +176,14 @@ describe ChallengesController do
 
   describe "DELETE destroy" do
     it "destroys the requested challenge" do
-      challenge = Challenge.create! valid_attributes
+      challenge = user.challenges.create! valid_attributes
       expect {
         delete :destroy, {:id => challenge.to_param}, valid_session
-      }.to change(Challenge, :count).by(-1)
+      }.to change(user.challenges, :count).by(-1)
     end
 
     it "redirects to the challenges list" do
-      challenge = Challenge.create! valid_attributes
+      challenge = user.challenges.create! valid_attributes
       delete :destroy, {:id => challenge.to_param}, valid_session
       response.should redirect_to(challenges_url)
     end

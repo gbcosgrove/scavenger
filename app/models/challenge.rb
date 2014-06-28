@@ -1,5 +1,8 @@
 class Challenge < ActiveRecord::Base
+
+  belongs_to :user
   has_many :challenge_items
+
 
   validates :title, presence: true
   validates :title, length: { minimum: 3 }

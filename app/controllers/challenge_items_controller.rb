@@ -57,7 +57,7 @@ class ChallengeItemsController < ApplicationController
 
   private
   def find_challenge
-    @challenge = Challenge.find(params[:challenge_id])
+    @challenge = current_user.challenges.find(params[:challenge_id])
   end
 
   def challenge_item_params

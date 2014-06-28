@@ -10,6 +10,11 @@ describe User do
       password_confirmation: "testpassword"
     }
   }
+
+  context "relationships" do
+    it { should have_many(:challenges) }
+  end
+
   context "validations" do
     let(:user) { User.new(valid_attributes) }
 

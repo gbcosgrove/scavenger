@@ -1,7 +1,11 @@
 require 'spec_helper'
 
 describe Challenge do
-  it { should have_many(:challenge_items) }
+
+  context "relationships" do
+    it { should have_many(:challenge_items) }
+    it { should belong_to(:user) }
+  end
 
   describe "#has_complete_items?" do
     let(:challenge) { Challenge.create(title: "Create an App", description: "Test the App") }
