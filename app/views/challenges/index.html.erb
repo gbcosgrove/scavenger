@@ -6,7 +6,7 @@
   <h2><%= challenge.title %></h2>
   <p><%= challenge.description %></p>
   <ul class="functions">
-    <li><%= link_to "List Items", challenge_challenge_items_path(challenge) %></li>
+    <li><%= link_to "Challenge Items", challenge_challenge_items_path(challenge) %></li>
     <li><%= link_to 'Show', challenge %></li>
     <li><%= link_to 'Edit', edit_challenge_path(challenge) %></li>
     <li><%= link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %></li>

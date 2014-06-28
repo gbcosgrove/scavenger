@@ -3,6 +3,8 @@ require 'spec_helper'
 describe "Completing challenge items" do
   let!(:challenge) { Challenge.create(title: "Create an app", description: "Test the app") }
   let!(:challenge_item) { challenge.challenge_items.create(content: "Never Sleep") }
+  let(:user) { create(:user) }
+  before { sign_in user, password: 'password123'}
 
   it "is successful when marking a single item complete" do
     expect(challenge_item.completed_at).to be_nil

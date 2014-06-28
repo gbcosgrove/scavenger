@@ -35,9 +35,6 @@ end
 group :test do
   gem 'shoulda-matchers'
   gem 'capybara', '~>2.1.0'
-  gem 'cucumber-rails', require: false
-  gem 'database_cleaner'
-  gem 'selenium-webdriver'
 end
 
 # Use ActiveModel has_secure_password

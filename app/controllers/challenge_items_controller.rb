@@ -1,4 +1,5 @@
 class ChallengeItemsController < ApplicationController
+  before_action :require_user
   before_action :find_challenge
 
   def index

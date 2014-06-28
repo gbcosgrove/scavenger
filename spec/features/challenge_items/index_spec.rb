@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe "Viewing challenge items" do
   let!(:challenge) { Challenge.create(title: "Create an App", description: "Test the App") }
+  let(:user) { create(:user) }
+  before { sign_in user, password: 'password123'}
 
   it "displays the title of the challenge" do
     visit_challenge(challenge)

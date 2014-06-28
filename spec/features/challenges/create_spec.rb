@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe "Creating challenges" do
+
+  let(:user) { create(:user) }
+
   def create_challenge(options={})
     options[:title] ||= "My challenge"
     options[:description] ||= "This is my challenge."
@@ -12,6 +15,10 @@ describe "Creating challenges" do
     fill_in "Title", with: options[:title]
     fill_in "Description", with: options[:description]
     click_button "Create Challenge"
+  end
+
+  before do
+    sign_in user, password: "password123"
   end
 
   it "redirects to the challenge index page on success" do
@@ -58,7 +65,7 @@ describe "Creating challenges" do
   it "displays an error when the challenge has no description" do
     expect(Challenge.count).to eq(0)
 
-    create_challenge title: "Create an App", description: "Test an App"
+    create_challenge title: "Create an App", description: ""
 
     expect(page).to have_content("error")
     expect(Challenge.count).to eq(0)

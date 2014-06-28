@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe "Adding challenge items" do
-  let!(:challenge_list) { Challenge.create(title: "Create an App", description: "Test the app") }
+  let!(:challenge) { Challenge.create(title: "Create an App", description: "Test the app") }
+  let(:user) { create(:user) }
+  before { sign_in user, password: 'password123'}
 
   it "is successful with valid content" do
     visit_challenge(challenge)
@@ -20,7 +22,7 @@ describe "Adding challenge items" do
     fill_in "Content", with: ""
     click_button "Save"
     within("div.flash") do
-      expect(page).to have_content("There was a problem adding that challenge list item.")
+      expect(page).to have_content("There was a problem adding that challenge item.")
     end
     expect(page).to have_content("Content can't be blank")
   end
