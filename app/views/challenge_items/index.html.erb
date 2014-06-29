@@ -1,4 +1,35 @@
-<h1><%= @challenge.title %></h1>
+<h3 class="page-title"><%= @challenge.title %></h3>
+
+<ul class="challenge challenge_items no-bullet">
+  <% @challenge.challenge_items.each do |challenge_item| %>
+  <li id="<%= dom_id(challenge_item) %>" class="challenge_item row">
+    <div class="small-2 medium-1 columns checkmark">
+      <% if challenge_item.completed? %>
+        <%= link_to "Mark Incomplete", complete_challenge_challenge_item_path(@challenge, challenge_item), method: :patch, class: "icon-check checked hide-text" %>
+      <% else %>
+        <%= link_to "Mark Complete", complete_challenge_challenge_item_path(@challenge, challenge_item), method: :patch, class: "icon-check checked hide-text" %>
+      <% end %>
+    </div>
+    <div class="small-7 medium-8 columns truncate challenge-content" title="<%= challenge_item.content %>">
+      <%= link_to challenge_item.content, edit_challenge_challenge_item_path(@challenge, challenge_item) %>
+    </div>
+    <div class="small-3 medium-2 columns complete">
+       <% if challenge_item.completed? %>
+        <%= challenge_item.completed_at %>
+      <% end %>
+    </div>
+  </li>
+  <% end %>
+</ul>
+
+
+
+
+
+
+
+
+<!-- <h1><%= @challenge.title %></h1>
 
 <table class="challenge_items">
   <thead>
@@ -31,3 +62,4 @@
 <p>
   <%= link_to "New Challenge Item", new_challenge_challenge_item_path %>
 </p>
+ -->

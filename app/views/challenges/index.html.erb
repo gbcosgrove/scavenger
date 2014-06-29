@@ -1,20 +1,14 @@
-<h1>Challenges</h1>
-
-
+<h2 class="page-title">Challenges</h2>
+<ul class="challenges no-bullet">
 <% @challenges.each do |challenge| %>
-<div class="challenge" id="<%= dom_id(challenge) %>">
-  <h2><%= challenge.title %></h2>
-  <p><%= challenge.description %></p>
-  <ul class="functions">
-    <li><%= link_to "Challenge Items", challenge_challenge_items_path(challenge) %></li>
-    <li><%= link_to 'Show', challenge %></li>
-    <li><%= link_to 'Edit', edit_challenge_path(challenge) %></li>
-    <li><%= link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %></li>
-  </ul>
-  <br class="clear" />
-</div>
+  <li id="<%= dom_id(challenge) %>" class="clearfix">
+    <%= link_to challenge_challenge_items_path(challenge), class: "row" do %>
+      <div class="small-10 medium-11 columns truncate" title="<%= challenge.title %>"><%= challenge.title %></div>
+      <div class="small-2 medium-1 columns"><span class="label round"><%= challenge.challenge_items.size %></span></div>
+    <% end %>
+  </li>
 <% end %>
-
-<br>
+</ul>
 
 <%= link_to 'New Challenge', new_challenge_path %>
+
