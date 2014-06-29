@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :challenge_item do
     challenge nil
-    content "MyString"
+    content "Challenge Item"
   end
 end

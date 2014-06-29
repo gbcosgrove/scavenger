@@ -16,4 +16,20 @@ describe ChallengeItem do
       expect(challenge_item.completed?).to be_true
     end
   end
+
+  describe "#toggle_completion!" do
+    let(:challenge_item) { create(:challenge_item) }
+    it "updates the completed_at attribute to the current time if nil" do
+      challenge_item.update_attribute(:completed_at, nil)
+      expect{ challenge_item.toggle_completion! }.to change{ challenge_item.completed_at }
+      expect(challenge_item.completed_at).to be_an_instance_of(ActiveSupport::TimeWithZone)
+    end
+
+    it "update completed_at to nil if set" do
+      challenge_item.update_attribute(:completed_at, Time.now)
+      expect{ challenge_item.toggle_completion! }.to change{ challenge_item.completed_at }
+      expect( challenge_item.completed_at ).to be_nil
+    end
+
+  end
 end

@@ -47,8 +47,8 @@ class ChallengeItemsController < ApplicationController
 
   def complete
     @challenge_item = @challenge.challenge_items.find(params[:id])
-    @challenge_item.update_attribute(:completed_at, Time.now)
-    redirect_to challenge_challenge_items_path, notice: "Challenge Item marked as complete."
+    @challenge_item.toggle_completion!
+    redirect_to challenge_challenge_items_path, notice: "Challenge Item updated."
   end
 
   def url_options
