@@ -9,7 +9,7 @@ describe "Editing challenge items" do
   it "is successful with valid content" do
     visit_challenge(challenge)
     within("#challenge_item_#{challenge_item.id}") do
-      click_link "Edit"
+      click_link challenge_item.content
     end
     fill_in "Content", with: "Lots of Sleep"
     click_button "Save"
@@ -21,7 +21,7 @@ describe "Editing challenge items" do
   it "is unsuccessful with no content" do
     visit_challenge(challenge)
     within("#challenge_item_#{challenge_item.id}") do
-      click_link "Edit"
+      click_link challenge_item.content
     end
     fill_in "Content", with: ""
     click_button "Save"
@@ -34,7 +34,7 @@ describe "Editing challenge items" do
   it "is unsuccessful with not enough content" do
     visit_challenge(challenge)
     within("#challenge_item_#{challenge_item.id}") do
-      click_link "Edit"
+      click_link challenge_item.content
     end
     fill_in "Content", with: "1"
     click_button "Save"

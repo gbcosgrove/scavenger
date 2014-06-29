@@ -11,7 +11,7 @@ describe "Adding challenge items" do
     fill_in "Content", with: "Always work"
     click_button "Save"
     expect(page).to have_content("Added challenge item.")
-    within("table.challenge_items") do
+    within(".challenge_items") do
       expect(page).to have_content("Always work")
     end
   end

@@ -7,6 +7,7 @@ describe "Deleting challenge items" do
   before { sign_in user, password: 'testpassword1'}
 
   it "is successful" do
+    pending "Adding delete link"
     visit_challenge(challenge)
     within "#challenge_item_#{challenge_item.id}" do
       click_link "Delete"

@@ -9,6 +9,7 @@ describe "Deleting challenges" do
   end
 
   it "is successful when clicking the destroy link" do
+    pending "Adding delete destroy link"
     visit "/challenges"
 
     within "#challenge_#{challenge.id}" do

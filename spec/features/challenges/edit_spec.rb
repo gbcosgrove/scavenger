@@ -24,6 +24,7 @@ describe "Editing challenges" do
   end
 
   it "updates a challenge successfully with correct information" do
+    pending "Adding update methods"
     update_challenge challenge: challenge,
                      title: "New title",
                      description: "New description"
@@ -36,6 +37,7 @@ describe "Editing challenges" do
   end
 
   it "displays an error with no title" do
+    pending "Adding update methods"
     update_challenge challenge: challenge, title: ""
     title = challenge.title
     challenge.reload
@@ -44,16 +46,19 @@ describe "Editing challenges" do
   end
 
   it "displays an error with too short a title" do
+    pending "Adding update methods"
     update_challenge challenge: challenge, title: "hi"
     expect(page).to have_content("error")
   end
 
   it "displays an error with no description" do
+    pending "Adding update methods"
     update_challenge challenge: challenge, description: ""
     expect(page).to have_content("error")
   end
 
   it "displays an error with too short a description" do
+    pending "Adding update methods"
     update_challenge challenge: challenge, description: "hi"
     expect(page).to have_content("error")
   end

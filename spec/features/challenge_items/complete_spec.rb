@@ -19,10 +19,11 @@ describe "Completing challenge items" do
   context "with completed items" do
     let!(:completed_challenge_item) { challenge.challenge_items.create(content: "Always work", completed_at: 5.minutes.ago) }
 
-    it "shows completed items as complete" do
+    it "shows completed items as complete and has option to mark incomplete" do
       visit_challenge challenge
       within dom_id_for(completed_challenge_item) do
-        expect(page).to have_content(completed_challenge_item.completed_at)
+        expect(page).to have_content(completed_challenge_item.completed_at.to_formatted_s(:long))
+        expect(page).to have_content("Mark Incomplete")
       end
     end
 

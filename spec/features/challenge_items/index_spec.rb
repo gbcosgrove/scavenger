@@ -7,14 +7,14 @@ describe "Viewing challenge items" do
 
   it "displays the title of the challenge" do
     visit_challenge(challenge)
-    within("div.content h1") do
+    within("h3.page-title") do
       expect(page).to have_content(challenge.title)
     end
   end
 
   it "displays no items when a challenge is empty" do
     visit_challenge(challenge)
-    expect(page.all("table.challenge_items tbody tr").size).to eq(0)
+    expect(page.all("ul.challenge_items li").size).to eq(0)
   end
 
   it "displays item content when a challenge has items" do
@@ -23,9 +23,9 @@ describe "Viewing challenge items" do
 
     visit_challenge(challenge)
 
-    expect(page.all("table.challenge_items tbody tr").size).to eq(2)
+    expect(page.all("ul.challenge_items li").size).to eq(2)
 
-    within "table.challenge_items" do
+    within "ul.challenge_items" do
       expect(page).to have_content("Never Sleep")
       expect(page).to have_content("Work all the time")
     end

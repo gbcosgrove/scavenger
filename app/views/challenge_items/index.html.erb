@@ -13,17 +13,18 @@
     <div class="small-7 medium-8 columns truncate challenge-content" title="<%= challenge_item.content %>">
       <%= link_to challenge_item.content, edit_challenge_challenge_item_path(@challenge, challenge_item) %>
     </div>
-    <div class="small-3 medium-2 columns complete">
+    <div class="small-3 medium-2 columns complete complete-time">
        <% if challenge_item.completed? %>
-        <%= challenge_item.completed_at %>
+        <%= challenge_item.completed_at.to_formatted_s(:long) %>
       <% end %>
     </div>
   </li>
   <% end %>
 </ul>
 
-
-
+<p>
+  <%= link_to "New Challenge Item", new_challenge_challenge_item_path %>
+</p>
 
 
 
