@@ -39,7 +39,7 @@
 
   <footer class="row">
     <div class="small-12 small-centered medium-8 medium-centered large-5 large-centered columns">
-      <%= if logged_in %>
+      <% if logged_in? %>
         <%= link_to "Settings", edit_user_path(current_user) %>
       <% end %>
     </div>
