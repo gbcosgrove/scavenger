@@ -1,0 +1,31 @@
+.icon-arrow-left {
+  @include icon("arrow-left.svg");
+}
+
+.icon-arrow-right {
+  @include icon("arrow-right.svg");
+}
+
+.icon-new {
+  @include icon("add.svg");
+}
+
+.icon-check {
+  @include icon("checkmark.svg");
+}
+
+.icon-close {
+  @include icon("close.svg");
+}
+
+.icon-signout {
+  @include icon("logout.svg");
+}
+
+.icon-settings {
+  @include icon("settings.svg");
+}
+
+.icon-email {
+  @include icon("email.svg");
+}
